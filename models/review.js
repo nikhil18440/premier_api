@@ -6,9 +6,8 @@ const reviewSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  productId: {
+  userEmail: {
     type: String,
-    ref: 'Product',
     required: true
   },
   comment: {
@@ -21,6 +20,6 @@ const reviewSchema = new mongoose.Schema({
     min: 1,
     max: 5
   }
-});
+}, {timestamps:true});
 
 module.exports = mongoose.model('Review', reviewSchema);

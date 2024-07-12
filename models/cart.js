@@ -18,6 +18,6 @@ const cartSchema = new mongoose.Schema({
       default: 1
     }
   }]
-});
+}, {timestamps:true});
 
 module.exports = mongoose.model('Cart', cartSchema);

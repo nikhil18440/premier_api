@@ -9,12 +9,15 @@ const userRoute = require("./routes/users.js")
 const cartRoute = require("./routes/cart.js")
 const orderRoute = require("./routes/order.js")
 const productRoute = require("./routes/product.js")
-const payment = require("./routes/paymentRoute.js")
+// const payment = require("./routes/paymentRoute.js")
 
 const app = express()
 app.use(express.json())
 dotenv.config()
-app.use(cors())
+app.use(cors({
+    origin: true,
+    credentials: true
+}))
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('connected to db'))
@@ -34,7 +37,7 @@ app.get('/', (req, res) => {
     res.send('Razorpay Payment Gateway Using React And Node Js ')
 })
 
-app.use('/api/payment', payment);
+// app.use('/api/payment', payment);
 
 
 const PORT = process.env.PORT

@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken")
+const User = require("../models/user")
+const { default: mongoose } = require("mongoose")
 
 
 const verifyToken = async (req,res,next) => {
@@ -26,9 +28,34 @@ const verifyTokenAndAuthorization = (req,res,next) => {
         if (req.user.id === req.params.id) {
             next()
         }else{
-            res.status(403).json("you are not allowed to perform this action")
+            res.status(403).json("you are not allowed to perform this action1")
         }
     })
 }
 
-module.exports = { verifyToken, verifyTokenAndAuthorization }
+const verifyTokenAndAdmin = (req,res,next) => {
+    verifyToken(req,res, async () => {
+        if(req.user){
+            var objectId  = mongoose.Types.ObjectId
+            var myID = req.user.id
+            try {
+                const user = await User.findOne({
+                    '_id': new objectId(myID)
+                })
+                
+                if (user.isAdmin) {
+                    next()
+                }else{
+                    res.status(403).json('errorrr')
+                }
+            } catch (error) {
+                console.log(error)
+                res.status(500).json(error)
+            }
+        }else{
+            res.status(400).json("no user")
+        }
+    })
+}
+
+module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin }
