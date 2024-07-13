@@ -9,6 +9,7 @@ const userRoute = require("./routes/users.js")
 const cartRoute = require("./routes/cart.js")
 const orderRoute = require("./routes/order.js")
 const productRoute = require("./routes/product.js")
+const reviewRoute = require("./routes/review.js")
 // const payment = require("./routes/paymentRoute.js")
 
 const app = express()
@@ -30,6 +31,7 @@ app.use("/api/user", userRoute)
 app.use("/api/cart", cartRoute)
 app.use("/api/order", orderRoute)
 app.use("/api/product", productRoute)
+app.use("/api/reviews", reviewRoute)
 
 
 // razor-pay payment

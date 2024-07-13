@@ -48,6 +48,7 @@ router.post('/login', async (req,res) => {
 
             const {password, ...others} = user._doc
 
+            console.log('logged in')
             res.status(200).json({...others, accessToken})
 
         }
