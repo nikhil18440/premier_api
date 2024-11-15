@@ -15,10 +15,7 @@ const reviewRoute = require("./routes/review.js")
 const app = express()
 app.use(express.json())
 dotenv.config()
-app.use(cors({
-    origin: true,
-    credentials: true
-}))
+app.use(cors())
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('connected to db'))
