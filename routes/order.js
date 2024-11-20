@@ -1,7 +1,8 @@
-const { verifyTokenAndAuthorization, verifyTokenAndAdmin, verifyToken } = require("./verifyToken")
-const Order = require("../models/order.js")
+import { verifyTokenAndAuthorization, verifyTokenAndAdmin, verifyToken } from "./verifyToken.js"
+import Order from "../models/order.js"
 
-const router = require("express").Router()
+import Router from 'express'
+const router = Router()
 
 
 //create order
@@ -15,4 +16,4 @@ router.post("/:id", verifyTokenAndAuthorization, async (req,res) => {
     }
 })
 
-module.exports = router
+export default router

@@ -1,5 +1,6 @@
-const review = require("../models/review.js")
-const router = require("express").Router()
+import review from "../models/review.js"
+import Router from 'express'
+const router = Router()
 
 // get all posts
 router.get("/",  async (req,res) => {
@@ -25,4 +26,4 @@ router.post("/", async (req,res) => {
 })
 
 
-module.exports = router
+export default router

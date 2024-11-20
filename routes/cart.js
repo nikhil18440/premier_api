@@ -1,7 +1,10 @@
-const { verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken")
-const Cart = require("../models/cart.js")
+// import { verifyTokenAndAuthorization, verifyTokenAndAdmin } from "./verifyToken"
+import {verifyToken,verifyTokenAndAdmin,verifyTokenAndAuthorization} from './verifyToken.js'
+// import Cart from "../models/cart.js"
+import Cart from '../models/cart.js'
 
-const router = require("express").Router()
+import Router from 'express'
+const router = Router()
 
 
 //create cart
@@ -53,4 +56,4 @@ router.get("/find/:id", verifyTokenAndAuthorization, async (req,res) => {
     }
 })
 
-module.exports = router
+export default router

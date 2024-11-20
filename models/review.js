@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const reviewSchema = new mongoose.Schema({
+const reviewSchema = new Schema({
   userEmail: {
     type: String,
     required: true
@@ -17,4 +17,4 @@ const reviewSchema = new mongoose.Schema({
   }
 }, {timestamps:true});
 
-module.exports = mongoose.model('Review', reviewSchema);
+export default model('Review', reviewSchema);

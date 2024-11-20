@@ -1,26 +1,27 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const mongoose = require('mongoose')
+import express, { json } from 'express'
+import { config } from 'dotenv'
+import { connect } from 'mongoose'
 // const bodyParser = require('body-parser')
-const cors = require('cors')
+import cors from 'cors'
 
-const authRoute = require('./routes/auth.js')
-const userRoute = require("./routes/users.js")
-const cartRoute = require("./routes/cart.js")
-const orderRoute = require("./routes/order.js")
-const productRoute = require("./routes/product.js")
-const reviewRoute = require("./routes/review.js")
+import authRoute from './routes/auth.js'
+import userRoute from "./routes/users.js"
+import cartRoute from "./routes/cart.js"
+import orderRoute from "./routes/order.js"
+import productRoute from "./routes/product.js"
+import reviewRoute from "./routes/review.js"
+import paymentRoute from "./routes/razorpay.js"
 // const payment = require("./routes/paymentRoute.js")
 
 const app = express()
-app.use(express.json())
-dotenv.config()
+app.use(json())
+config()
 app.use(cors({
     origin: true,
     credentials: true
 }))
 
-mongoose.connect(process.env.MONGO_URL)
+connect(process.env.MONGO_URL)
     .then(() => console.log('connected to db'))
     .catch((err) => {
         console.log(err)
@@ -32,6 +33,7 @@ app.use("/api/cart", cartRoute)
 app.use("/api/order", orderRoute)
 app.use("/api/product", productRoute)
 app.use("/api/reviews", reviewRoute)
+app.use("/api/payment", paymentRoute)
 
 
 // razor-pay payment

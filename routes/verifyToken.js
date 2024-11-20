@@ -1,6 +1,7 @@
-const jwt = require("jsonwebtoken")
-const User = require("../models/user")
-const { default: mongoose } = require("mongoose")
+import pkg from "jsonwebtoken"
+const { verify } = pkg
+import User from "../models/user.js"
+import { default as mongoose } from "mongoose"
 
 
 const verifyToken = async (req,res,next) => {
@@ -10,7 +11,7 @@ const verifyToken = async (req,res,next) => {
     }
     if(authHeader){
         const token = authHeader.split(" ")[1]
-        jwt.verify(token, process.env.JWT_SEC, (err,user) => {
+        verify(token, process.env.JWT_SEC, (err,user) => {
             if (err) {
                 res.status(403).json(err)
             }else{
@@ -39,7 +40,7 @@ const verifyTokenAndAdmin = (req,res,next) => {
             var objectId  = mongoose.Types.ObjectId
             var myID = req.user.id
             try {
-                const user = await User.findOne({
+                const user = await User({
                     '_id': new objectId(myID)
                 })
                 
@@ -58,4 +59,4 @@ const verifyTokenAndAdmin = (req,res,next) => {
     })
 }
 
-module.exports = { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin }
+export { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin }

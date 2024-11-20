@@ -1,7 +1,8 @@
-const User = require('../models/user.js')
-const { verifyTokenAndAuthorization, verifyToken } = require("./verifyToken.js")
+import User from '../models/user.js'
+import { verifyTokenAndAuthorization, verifyToken } from "./verifyToken.js"
 
-const router = require("express").Router()
+import Router from 'express'
+const router = Router()
 
 
 //update user
@@ -21,4 +22,4 @@ router.put("/:id", verifyTokenAndAuthorization, async (req,res) => {
 
 })
 
-module.exports = router
+export default router

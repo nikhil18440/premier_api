@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new Schema({
   orderDate: {
     type: Date,
     default: Date.now
@@ -33,4 +33,4 @@ const orderSchema = new mongoose.Schema({
   }]
 }, {timestamps:true});
 
-module.exports = mongoose.model('Order', orderSchema);
+export default model('Order', orderSchema);

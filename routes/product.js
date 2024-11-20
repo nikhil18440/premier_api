@@ -1,7 +1,8 @@
-const { verifyTokenAndAuthorization, verifyTokenAndAdmin } = require("./verifyToken")
-const Product = require("../models/product.js")
+import { verifyTokenAndAuthorization, verifyTokenAndAdmin } from "./verifyToken.js"
+import Product from "../models/product.js"
 
-const router = require("express").Router()
+import Router from 'express'
+const router = Router()
 
 //get product
 router.get("/:id", async (req,res) => {
@@ -48,4 +49,4 @@ router.post("/", verifyTokenAndAdmin, async (req,res) => {
 
 
 
-module.exports = router
+export default router

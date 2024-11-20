@@ -1,15 +1,18 @@
-const express = require('express')
-const router = express.Router()
-const User = require('../models/user.js')
-const CryptoJS = require('crypto-js')
-const jwt = require('jsonwebtoken')
+import { Router } from 'express'
+const router = Router()
+import User from '../models/user.js'
+import pkg from 'crypto-js'
+const { AES, enc } = pkg
+
+import pkg2 from 'jsonwebtoken'
+const { sign } = pkg2
 
 
 // SIGN UP
 router.post('/register', async (req,res) => {
     const newUser = new User({
         email: req.body.email,
-        password: CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SECRET).toString(),
+        password: AES.encrypt(req.body.password, process.env.PASS_SECRET).toString(),
         phoneNumber: req.body.phoneNumber,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -35,12 +38,12 @@ router.post('/login', async (req,res) => {
         !user && res.status(401).json('wrong credentials1')
 
         if(user){
-            const hashedPword = CryptoJS.AES.decrypt(user.password, process.env.PASS_SECRET)
-            const pword = hashedPword.toString(CryptoJS.enc.Utf8)
+            const hashedPword = AES.decrypt(user.password, process.env.PASS_SECRET)
+            const pword = hashedPword.toString(enc.Utf8)
 
             pword !== req.body.password && res.status(401).json('wrong credentials2')
 
-            const accessToken = jwt.sign({
+            const accessToken = sign({
                 id: user._id
             }, process.env.JWT_SEC, {
                 expiresIn: "3d"
@@ -58,4 +61,4 @@ router.post('/login', async (req,res) => {
     }
 })
 
-module.exports = router
+export default router
