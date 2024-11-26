@@ -5,12 +5,16 @@ const orderSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  deliveryDate: {
+    type: Date,
+    default: null
+  },
   userId: {
     type: String,
     ref: 'User',
     required: true
   },
-  totalPrice: {
+  total: {
     type: Number,
     required: true
   },
@@ -18,6 +22,10 @@ const orderSchema = new Schema({
     type: String,
     enum: ['pending', 'shipped', 'delivered', 'cancelled'],
     default: 'pending'
+  },
+  quantity: {
+    type: Number,
+    required: true
   },
   products: [{
     productId: {
@@ -29,6 +37,11 @@ const orderSchema = new Schema({
       type: Number,
       required: true,
       default: 1
+    },
+    size: {
+      type: String,
+      enum: ['xs','s','m','l','xl','xxl'],
+      required: true
     }
   }]
 }, {timestamps:true});
