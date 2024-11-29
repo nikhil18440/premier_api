@@ -12,7 +12,7 @@ const razorpay = new Razorpay({
 router.post('/', async (req,res) => {
     try {
         const order = await razorpay.orders.create({
-            amount: 100*100, //amount in paise,
+            amount: JSON.parse(req.body.total)*100, //amount in paise,
             currency: 'INR',
             receipt: 'receipt_' + Math.random().toString(36).substring(7),
         })

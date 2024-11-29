@@ -16,6 +16,10 @@ const productSchema = new Schema({
   images: {
     type: Array,
     required: true
+  },
+  category: {
+    type: String,
+    enum: ['polo','oversize'],
   }
 }, {timestamps:true});
 

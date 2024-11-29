@@ -10,20 +10,36 @@ const { sign } = pkg2
 
 // SIGN UP
 router.post('/register', async (req,res) => {
-    const newUser = new User({
-        email: req.body.email,
-        password: AES.encrypt(req.body.password, process.env.PASS_SECRET).toString(),
-        phoneNumber: req.body.phoneNumber,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
+
+    const emailExist = await User.findOne({
+        email: req.body.email
+    })
+    const existPhone = await User.findOne({
+        phoneNumber: req.body.phoneNumber
     })
 
-    try {
-        const savedUser = await newUser.save()
-        res.status(201).json(savedUser)
-    } catch (error) {
-        res.status(500).json(error)
+    if(emailExist || existPhone){
+        return res.status(202).json({message: 'Email or Phone number already exists'})
+    }else{
+        const newUser = new User({
+            email: req.body.email,
+            password: AES.encrypt(req.body.password, process.env.PASS_SECRET).toString(),
+            phoneNumber: req.body.phoneNumber,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+        })
+    
+        try {
+            const savedUser = await newUser.save()
+            res.status(201).json(savedUser)
+        } catch (error) {
+            res.status(500).json(error)
+        }
     }
+
+    
+
+    
 
 })
 

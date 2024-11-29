@@ -38,6 +38,11 @@ const userSchema = new Schema({
     type: Boolean,
     required: true,
     default: false
+  },
+  points: {
+    type: Number,
+    default: 0,
+    required: true
   }
 }, {timestamps: true});
 
