@@ -38,7 +38,7 @@ app.use("/api/payment", paymentRoute)
 
 // razor-pay payment
 app.get('/', (req, res) => {
-    res.send('Razorpay Payment Gateway Using React And Node Js ')
+    res.send('main page')
 })
 
 // app.use('/api/payment', payment);
