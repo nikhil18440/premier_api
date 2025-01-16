@@ -33,6 +33,41 @@ router.get("/",  async (req,res) => {
     }
 })
 
+
+// Route to fetch products matching categories
+router.post('/categories', async (req, res) => {
+    const { categories } = req.body;
+
+    if (!Array.isArray(categories) || categories.length === 0) {
+        return res.status(400).json({ message: 'Invalid categories array' });
+    }
+
+    try {
+        // Fetch products and calculate the number of matching categories
+        const products = await Product.find({
+            categories: { $in: categories }
+        });
+
+        // Sort products based on the number of matching categories
+        const sortedProducts = products.sort((a, b) => {
+            const aMatchCount = a.categories.filter(cat => categories.includes(cat)).length;
+            const bMatchCount = b.categories.filter(cat => categories.includes(cat)).length;
+            return bMatchCount - aMatchCount; // Sort in descending order
+        });
+
+        // Get the first 3 products
+        const topProducts = sortedProducts.slice(0, 3);
+
+        return res.json(topProducts);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+
+
 // create a post
 router.post("/", verifyTokenAndAdmin, async (req,res) => {
     const newProduct = new Product(req.body)

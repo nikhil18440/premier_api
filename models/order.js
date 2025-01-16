@@ -1,5 +1,15 @@
 import { Schema, model } from 'mongoose';
 
+const detailSchema = new Schema({
+  fname: String,
+  lname: String,
+  email: String,
+  phone: String,
+  address: String,
+  pincode: String,
+  state: String
+
+})
 const orderSchema = new Schema({
   orderDate: {
     type: Date,
@@ -12,8 +22,13 @@ const orderSchema = new Schema({
   userId: {
     type: String,
     ref: 'User',
+    // required: true
+  },
+  userDetails: {
+    type: detailSchema,
     required: true
   },
+
   total: {
     type: Number,
     required: true
@@ -40,7 +55,7 @@ const orderSchema = new Schema({
     },
     size: {
       type: String,
-      enum: ['xs','s','m','l','xl','xxl'],
+      enum: ['XS','S','M','L','XL','XXL'],
       required: true
     }
   }]

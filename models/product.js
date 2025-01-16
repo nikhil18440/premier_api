@@ -17,9 +17,9 @@ const productSchema = new Schema({
     type: Array,
     required: true
   },
-  category: {
-    type: String,
-    enum: ['polo','oversize'],
+  categories: {
+    type: Array,
+    required: true
   }
 }, {timestamps:true});
 
