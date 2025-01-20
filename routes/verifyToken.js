@@ -37,17 +37,18 @@ const verifyTokenAndAuthorization = (req,res,next) => {
 const verifyTokenAndAdmin = (req,res,next) => {
     verifyToken(req,res, async () => {
         if(req.user){
+            console.log(req.user)
             var objectId  = mongoose.Types.ObjectId
             var myID = req.user.id
             try {
-                const user = await User({
-                    '_id': new objectId(myID)
+                const user = await User.findOne({
+                    '_id': objectId.createFromHexString(myID)
                 })
                 
                 if (user.isAdmin) {
                     next()
                 }else{
-                    res.status(403).json('errorrr')
+                    res.status(403).json(user)
                 }
             } catch (error) {
                 console.log(error)

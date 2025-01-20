@@ -69,7 +69,7 @@ router.post('/categories', async (req, res) => {
 
 
 // create a post
-router.post("/", verifyTokenAndAdmin, async (req,res) => {
+router.post("/:id", verifyTokenAndAdmin, async (req,res) => {
     const newProduct = new Product(req.body)
 
     try {

@@ -42,7 +42,7 @@ const userSchema = new Schema({
   points: {
     type: Number,
     default: 0,
-    required: true
+    // required: true
   }
 }, {timestamps: true});
 
